@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        if(nums.size()==1){
+            return nums[0];
+        }
+        int c=0;
+        int ans=INT_MIN;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<0)
+             c++;
+            ans=max(ans,nums[i]);
+        }
+        
+        if(c==nums.size()){
+          return ans;
+        }
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]<0){
+                nums[i]=0;
+            }
+            int s=nums[i]+nums[i+1];
+            nums[i+1]=s;
+        }
+        
+        for(int i=0;i<nums.size();i++){
+            ans=max(ans,nums[i]);
+        }
+        return ans;
+    }
+};
