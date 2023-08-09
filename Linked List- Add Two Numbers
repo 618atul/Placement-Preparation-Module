@@ -1,0 +1,97 @@
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* headA, ListNode* headB) {
+        ListNode* t1=headA;
+        ListNode* t2=headB;
+        ListNode* prev = NULL;
+        int l1=1;
+        int l2=1;
+        while(t1->next!=NULL){
+            t1=t1->next;
+            l1++;
+        }
+        while(t2->next!=NULL){
+            t2=t2->next;
+            l2++;
+        }
+        ListNode* temp1=headA;
+        ListNode* temp2=headB;
+        int c=0;
+        if(l1>l2){
+            while(temp2  != NULL){
+                int s = temp1 -> val + temp2 -> val + c;
+                int d = s%10;
+                temp1 -> val = d;
+                temp1 = temp1 -> next;
+                temp2 = temp2 -> next;
+                c = s/10;
+                
+            }
+            
+            while(temp1 != NULL){
+                int s = temp1 -> val + c;
+                int d = s%10;
+                temp1 -> val = d;
+                prev = temp1;
+                temp1 = temp1 -> next;
+                c = s/10;
+            }
+            
+            if(c!= 0){
+                ListNode* carry = new ListNode(c);
+                prev -> next = carry;
+            }
+            
+            return headA;
+        }
+        
+         else if(l1 < l2){
+            while(temp1 != NULL){
+                int s = temp1 -> val + temp2 -> val + c;
+                int d = s%10;
+                temp2 -> val = d;
+                temp1 = temp1 -> next;
+                temp2 = temp2 -> next;
+                c = s/10;
+                
+            }
+            
+            while(temp2 != NULL){
+                int s = temp2 -> val + c;
+                int d = s%10;
+                temp2 -> val = d;
+                prev = temp2;
+                temp2 = temp2 -> next;
+                c = s/10;
+            }
+            
+            if(c!= 0){
+                ListNode* carry = new ListNode(c);
+                prev -> next = carry;
+            }
+            
+            return headB;
+        }
+        
+        else{
+             while(temp1 != NULL && temp2  != NULL){
+                int s = temp1 -> val + temp2 -> val + c;
+                int d = s%10;
+                temp1 -> val = d;
+                prev = temp1;
+                temp1 = temp1 -> next;
+                temp2 = temp2 -> next;
+                c = s/10;
+                
+            }
+         
+            if(c!= 0){
+                ListNode* carry = new ListNode(c);
+                prev -> next = carry;
+            }
+            
+            return headA;
+        }
+
+    }
+};
