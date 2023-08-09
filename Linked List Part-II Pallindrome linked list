@@ -1,0 +1,59 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* temp=head;
+        int l=1;
+        while(temp->next!=NULL){
+            temp=temp->next;
+            l++;
+        }
+        int d=(l+1)/2;
+        temp=head;
+        ListNode* prev1=NULL;
+        while(d){
+            prev1=temp;
+            temp=temp->next;
+            d--;
+        }
+        if(l==1 || l==0){
+            return head;
+        }
+        if(l==2){
+            if(head->val==head->next->val)
+            return 1;
+            else
+            return 0;
+        }
+        ListNode* prev=NULL;
+        ListNode* curr=temp;
+        ListNode* nxt=NULL;
+        ListNode* temp1=NULL;
+        if(curr->next!=NULL){
+             while(curr!=NULL){
+                 nxt=curr->next;
+                 curr->next=prev;
+                 prev=curr;
+                 curr=nxt;
+             }
+             prev1->next=prev;
+             temp1=prev;
+        }
+        else{
+            temp1=temp;
+        }
+        temp=head;
+        bool flag=0;
+        while(temp1!=NULL){
+            if(temp1->val==temp->val){
+                flag=1;
+            }
+            else{
+                flag=0;
+                break;
+            }
+            temp1=temp1->next;
+            temp=temp->next;
+        }
+        return flag;
+    }
+};
